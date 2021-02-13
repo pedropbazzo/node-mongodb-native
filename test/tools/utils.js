@@ -120,7 +120,7 @@ function visualizeMonitoringEvents(client) {
   }
 
   client.on('serverHeartbeatStarted', event =>
-    print(`${chalk.yellow('heartbeat')} ${chalk.bold('started')} host: '${event.connectionId}`)
+    print(`${chalk.yellow('heartbeat')} ${chalk.bold('started')} host: '${event.connectionId}'`)
   );
 
   client.on('serverHeartbeatSucceeded', event =>
