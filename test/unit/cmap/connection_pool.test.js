@@ -490,4 +490,36 @@ describe('Connection Pool', function () {
       });
     });
   });
+
+  describe('#closeConnections', function () {
+    context('when the server id matches', function () {
+      let pool;
+
+      beforeEach(() => {
+        pool = new ConnectionPool({
+          minPoolSize: 3,
+          hostAddress: server.hostAddress()
+        });
+
+      });
+
+      afterEach((done) => {
+        pool.close(done);
+      });
+
+      it('closes the matching connections', function () {
+
+      });
+
+      it('removes the connections from the queue', function () {
+
+      });
+    });
+
+    context('when the server id does not match', function () {
+      it('does not close any connections', function () {
+
+      });
+    });
+  });
 });

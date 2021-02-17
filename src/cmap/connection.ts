@@ -30,7 +30,7 @@ import {
   OpQueryOptions,
   Msg
 } from './commands';
-import { BSONSerializeOptions, Document, Long, pluckBSONSerializeOptions } from '../bson';
+import { BSONSerializeOptions, Document, Long, pluckBSONSerializeOptions, ObjectId } from '../bson';
 import type { AutoEncrypter } from '../deps';
 import type { MongoCredentials } from './auth/mongo_credentials';
 import type { Stream } from './connect';
@@ -231,6 +231,10 @@ export class Connection extends EventEmitter {
 
   get ismaster(): Document {
     return this[kIsMaster];
+  }
+
+  get serverId(): ObjectId {
+    return ismaster().serverId;
   }
 
   // the `connect` method stores the result of the handshake ismaster on the connection
@@ -617,8 +621,10 @@ export class CryptoConnection extends Connection {
   }
 }
 
-function hasSessionSupport(conn: Connection) {
-  return conn.description.logicalSessionTimeoutMinutes != null;
+/** @public */
+export function hasSessionSupport(conn: Connection): boolean {
+  const description = conn.description;
+  return description.logicalSessionTimeoutMinutes != null || !!description.loadBalanced;
 }
 
 function supportsOpMsg(conn: Connection) {
