@@ -101,4 +101,4 @@ fi
 # NOTE: registry was overridden to not use artifactory, remove the `registry` line when
 #       BUILD-6774 is resolved.
 
-npm install --unsafe-perm
+npm install --unsafe-perm 
